@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-//
-//Route::get('/', function () {
-//    return view('welcome');
-//});
+
+Route::get('/', function () {
+   return redirect()->route('filament.admin.pages.dashboard ');
+});
 //
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
@@ -20,4 +20,4 @@ use Illuminate\Support\Facades\Route;
 //require __DIR__.'/auth.php';
  //
 
-/////   xx
+/////xxxx
