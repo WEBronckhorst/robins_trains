@@ -1,0 +1,19 @@
+created:
+    - database/factories/CategoryFactory.php
+    - database/factories/ManufacturerFactory.php
+    - database/factories/RailSystemFactory.php
+    - database/factories/TrainFactory.php
+    - database/migrations/2024_11_23_120627_create_categories_table.php
+    - database/migrations/2024_11_23_120628_create_manufacturers_table.php
+    - database/migrations/2024_11_23_120629_create_rail_systems_table.php
+    - database/migrations/2024_11_23_120630_create_trains_table.php
+    - app/Models/Category.php
+    - app/Models/Manufacturer.php
+    - app/Models/RailSystem.php
+    - app/Models/Train.php
+models:
+    User: { name: string, email: string, email_verified_at: 'datetime nullable', password: string, remember_token: 'string nullable' }
+    Category: { Title: string, Description: text }
+    Manufacturer: { Title: string, Description: text, Logo: 'nullable string' }
+    RailSystem: { Title: string, Description: text }
+    Train: { CategoryId: integer, ManufacturerId: integer, RailSystemId: integer, Title: string, Quantity: integer, Description: text, Image: 'nullable string', Scale: integer, Country: string, Company: string, CompanyNumber: integer, Color: string, Decoder: boolean, ShortDescription: text, PurchasedDate: date, Packaging: string, Condition: string, PurchasedFor: string, Address: string }

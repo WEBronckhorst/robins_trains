@@ -1,0 +1,34 @@
+models:
+  Category:
+    Title: string
+    Description: text
+
+  Manufacturer:
+    Title: string
+    Description: text
+    Logo: nullable string
+
+  RailSystem:
+      Title: string
+      Description: text
+
+  Train:
+    CategoryId: integer
+    ManufacturerId: integer
+    RailSystemId: integer
+    Title: string
+    Quantity: integer
+    Description: text
+    Image: nullable string
+    Scale: integer
+    Country: string
+    Company: string
+    CompanyNumber:  integer
+    Color: string
+    Decoder: boolean
+    ShortDescription: text
+    PurchasedDate: date
+    Packaging: string
+    Condition: string
+    PurchasedFor: string
+    Address: string
