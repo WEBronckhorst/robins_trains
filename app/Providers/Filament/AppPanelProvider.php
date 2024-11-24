@@ -21,11 +21,11 @@ use Illuminate\View\Middleware\ShareErrorsFromSession;
 class AppPanelProvider extends PanelProvider
 {
     public function panel(Panel $panel): Panel
-    { 
+    {
         return $panel
             ->default()
             ->id('app')
-            ->path('/')
+            ->path('admins')
             ->login()
             ->colors([
                 'primary' => Color::Amber,
