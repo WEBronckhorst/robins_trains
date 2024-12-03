@@ -40,10 +40,10 @@ class CategoryResource extends Resource
                 ->searchable(),
                 Tables\Columns\TextColumn::make('Description')
                     ->limit(50)
-                    ->displayUsing(function($value) {
+                    ->getStateUsing(function($value) {
                         return strip_tags($value);
                     })
-                    ->limit(50),
+                    ->limit(50)
             ])
             ->filters([
                 //

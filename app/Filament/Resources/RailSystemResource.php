@@ -37,6 +37,9 @@ class RailSystemResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('Title'),
                 Tables\Columns\TextColumn::make('Description')
+                    ->getStateUsing(function($value) {
+                        return strip_tags($value);
+                    })
                     ->limit(50)
             ])
             ->filters([
