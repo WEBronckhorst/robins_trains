@@ -39,9 +39,7 @@ class ManufacturerResource extends Resource
                 Tables\Columns\ImageColumn::make('Logo'),
                 Tables\Columns\TextColumn::make('Title'),
                 Tables\Columns\TextColumn::make('Description')
-                    ->getStateUsing(function($value) {
-                        return strip_tags($value);
-                    })
+                    ->getStateUsing(fn ($record) =>  strip_tags($record['Description']))
                     ->limit(50)
             ])
             ->filters([

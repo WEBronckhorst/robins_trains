@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Number;
 
 class RailSystemResource extends Resource
 {
@@ -37,9 +38,7 @@ class RailSystemResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('Title'),
                 Tables\Columns\TextColumn::make('Description')
-                    ->getStateUsing(function($value) {
-                        return strip_tags($value);
-                    })
+                    ->getStateUsing(fn ($record) =>  strip_tags($record['Description']))
                     ->limit(50)
             ])
             ->filters([
