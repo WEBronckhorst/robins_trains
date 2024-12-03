@@ -25,9 +25,9 @@ class Train extends Model
      * @var array
      */
     protected $fillable = [
-        'CategoryId',
-        'ManufacturerId',
-        'RailSystemId',
+        'category_id',
+        'manufacturer_id',
+        'rail_system_id',
         'Title',
         'Quantity',
         'Description',
@@ -42,7 +42,7 @@ class Train extends Model
         'PurchasedDate',
         'Packaging',
         'Condition',
-        'PurchasedFor',
+
         'Address',
     ];
 
@@ -73,24 +73,46 @@ class Train extends Model
     public static function getForm(): array
     {
         return [
+            Section::make()
+                ->schema([
             TextInput::make('Title')
+                ->columnSpan(2)
+                ->name('Titel')
                 ->required()
                 -> maxLength(255),
 
-            Select::make('Category')
+            Select::make('category_id')
+                ->name('Categorie')
                 ->relationship(name: 'Category', titleAttribute: 'Title')
                 ->createOptionForm(Category::getForm())
                 ->editOptionForm(Category::getForm()),
-            Select::make('Manufacturer')
+            Select::make('manufacturer_id')
+                ->name('Merk')
                 ->relationship(name: 'Manufacturer', titleAttribute: 'Title')
                 ->createOptionForm(Manufacturer::getForm())
                 ->editOptionForm(Manufacturer::getForm()),
-            Select::make('RailSystem')
+
+            Select::make('rail_system_id')
+                ->name('Spoor systeem')
                 ->relationship(name: 'RailSystem', titleAttribute: 'Title')
                 ->createOptionForm(RailSystem::getForm())
                 ->editOptionForm(RailSystem::getForm()),
+            Select::make('Epoch')
+                ->name('Tijdperk')
+                ->options([
+                    'I',
+                    'II',
+                    'III',
+                    'IV',
+                    'V',
+                    'VI',
+                    'VII'
+                    ]),
+            ])
+                ->columns(3),
 
             RichEditor::make('Description')
+                ->name('Beschrijving')
                 ->columnSpanFull()
                 ->toolbarButtons([
                     'attachFiles',
@@ -110,45 +132,54 @@ class Train extends Model
                 ]),
 
 
-            Section::make('Details')
+            Section::make()
                 ->schema([
                     FileUpload::make('Image')
+                        ->name('Afbeelding')
                         ->image(),
                     TextInput::make('Scale')
-                        ->numeric()
+                        ->name('Schaal')
+                        ->default('N (1:160)')
                         ->required(),
                     TextInput::make('Country')
-                        ->required()
-                        -> maxLength(255),
+                        ->name('Land')
+                        ->maxLength(255),
                     TextInput::make('Company')
-                        ->required()
+                        ->name('Bedrijf')
+
                         -> maxLength(255),
                     TextInput::make('CompanyNumber')
-                        ->required()
-                        -> numeric(),
-                    ColorPicker::make('Color')
-                        ->required(),
+                        ->name('Bedrijfsnummer')
 
+                        ->numeric(),
+                    TextInput::make('Quantity')
+                        ->name('Aantal')
+                        ->default(1)
+                        ->numeric(),
+                    ColorPicker::make('Color')
+                        ->name('Kleur'),
                     Textarea::make('ShortDescription')
-                        ->required(),
+                        ->name('Korte beschrijving'),
                     DatePicker::make('PurchasedDate')
-                        ->required()
+                        ->name('Aankoop datum')
                         ->default(now()),
 
                     TextInput::make('Packaging')
-                        ->required()
-                        -> maxLength(255),
+                        ->name('Verpakking')
+                        ->maxLength(255),
+                    TextInput::make('Price')
+                        ->name('Prijs')
+                        ->prefix('€')
+                        ->numeric()
+                        ->maxLength(255),
                     TextInput::make('Condition')
-                        ->required()
+                        ->name('Staat')
                         -> maxLength(255),
-                    TextInput::make('PurchasedFor')
-                        ->required()
-                        -> maxLength(255),
+
                     TextInput::make('Address')
-                        ->required()
+                        ->name('Lok adres')
                         -> maxLength(255),
                     Toggle::make('Decoder')
-                        ->required()
                 ])
                 ->columns(2),
 

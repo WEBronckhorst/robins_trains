@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Number;
 
 class TrainResource extends Resource
 {
@@ -41,6 +42,10 @@ class TrainResource extends Resource
                     ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('Quantity')
+                    ->sortable(),
+
+                Tables\Columns\TextColumn::make('Prise')
+                    ->getStateUsing(fn ($record) => Number::currency($record['Price'], 'EUR', 'nl'))
                     ->sortable(),
                 Tables\Columns\TextColumn::make('Manufacturer.Title')
                     ->sortable(),

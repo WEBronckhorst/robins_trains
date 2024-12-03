@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\ManufacturerResource\Pages;
 use App\Filament\Resources\ManufacturerResource\RelationManagers;
+use App\Models\Category;
 use App\Models\Manufacturer;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -28,21 +29,7 @@ class ManufacturerResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('Title')
-                    ->required()
-                    ->maxLength(255)
-                    ->columnSpanFull(),
-
-                Forms\Components\RichEditor::make('Description')
-                    ->required()
-                    ->maxLength(255)
-                    ->columnSpanFull(),
-                Forms\Components\FileUpload::make('Logo')
-                    ->required()
-                    ->image()
-                    ->columnSpanFull(),
-            ]);
+            ->schema( Manufacturer::getForm());
     }
 
     public static function table(Table $table): Table

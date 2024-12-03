@@ -28,16 +28,18 @@ class CategoryResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                //
-            ]);
+            ->schema( Category::getForm());
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('Title')
+                ->sortable()
+                ->searchable(),
+                Tables\Columns\TextColumn::make('Description')
+                    ->limit(50)
             ])
             ->filters([
                 //

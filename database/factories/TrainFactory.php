@@ -45,6 +45,7 @@ class TrainFactory extends Factory
             'category_id' =>  rand(1, Category::count()),
             'manufacturer_id' =>  rand(1, Manufacturer::count()),
             'rail_system_id' => rand(1, RailSystem::count()),
+            'Epoch' => "II",
             'Title' => $title,
             'Quantity' => fake()->numberBetween(1, 10),
             'Description' => fake()->text(300),
@@ -59,7 +60,7 @@ class TrainFactory extends Factory
             'PurchasedDate' => fake()->dateTimeBetween('-3 years', 'yesterday')->format('Y-m-d'),
             'Packaging' => fake()->word(),
             'Condition' => fake()->word(),
-            'PurchasedFor' => fake()->word(),
+            'Price' => fake()->numberBetween(20, 100),
             'Address' => fake()->word(),
         ];
     }

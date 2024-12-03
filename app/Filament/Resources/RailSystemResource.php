@@ -28,17 +28,7 @@ class RailSystemResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('Title')
-                    ->required()
-                    ->maxLength(255)
-                    ->columnSpanFull(),
-
-                Forms\Components\RichEditor::make('Description')
-                    ->required()
-                    ->maxLength(255)
-                    ->columnSpanFull(),
-            ]);
+            ->schema( RailSystem::getForm());
     }
 
     public static function table(Table $table): Table

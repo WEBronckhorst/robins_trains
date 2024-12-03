@@ -18,22 +18,24 @@ return new class extends Migration
             $table->foreignIdFor(Category::class);
             $table->foreignIdFor(Manufacturer::class);
             $table->foreignIdFor(\App\Models\RailSystem::class);
+            $table->integer('epoch')->default(1);
             $table->string('Title');
-            $table->integer('Quantity');
-            $table->text('Description');
+            $table->integer('Quantity')->default(1);
+            $table->text('Description')->nullable();
             $table->string('Image')->nullable();
-            $table->integer('Scale');
-            $table->string('Country');
-            $table->string('Company');
-            $table->integer('CompanyNumber');
-            $table->string('Color');
-            $table->boolean('Decoder');
-            $table->text('ShortDescription');
-            $table->date('PurchasedDate');
-            $table->string('Packaging');
-            $table->string('Condition');
-            $table->string('PurchasedFor');
-            $table->string('Address');
+            $table->string('Scale');
+            $table->string('Country')->nullable();
+            $table->string('Company')->nullable();
+            $table->integer('CompanyNumber')->nullable();
+            $table->string('Color')->nullable();
+            $table->boolean('Decoder')->nullable();
+            $table->text('ShortDescription')->nullable();
+            $table->date('PurchasedDate')->nullable();
+            $table->string('Packaging')->nullable();
+            $table->decimal('Price', 8, 2)->default(0);
+            $table->string('Condition')->nullable();
+
+            $table->string('Address')->nullable();
             $table->timestamps();
         });
     }
