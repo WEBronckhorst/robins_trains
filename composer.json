@@ -6,25 +6,27 @@
     "keywords": ["laravel", "framework"],
     "license": "MIT",
     "require": {
-        "php": "^8.2",
+        "php": "^8.3",
         "alirezasedghi/laravel-image-faker": "^1.0",
         "codeat3/blade-game-icons": "^1.4",
         "codeat3/blade-weather-icons": "^1.6",
-        "filament/filament": "^3.2",
-        "laravel/framework": "^11.31",
-        "laravel/tinker": "^2.9"
+        "filament/filament": "^5.0",
+        "laravel/framework": "^13.0",
+        "laravel/tinker": "^3.0",
+        "livewire/livewire": "^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.23",
+        "filament/upgrade": "^5.0",
         "laravel-shift/blueprint": "^2.10",
         "laravel/breeze": "^2.2",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
         "laravel/sail": "^1.26",
         "mockery/mockery": "^1.6",
-        "nunomaduro/collision": "^8.1",
-        "pestphp/pest": "^3.5",
-        "pestphp/pest-plugin-laravel": "^3.0",
+        "nunomaduro/collision": "^8.6",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
         "smknstd/fakerphp-picsum-images": "^1.0"
     },
     "autoload": {

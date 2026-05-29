@@ -3,32 +3,31 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
-use App\Filament\Resources\CategoryResource\RelationManagers;
 use App\Models\Category;
-use Filament\Forms;
-use Filament\Forms\Form;
+use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CategoryResource extends Resource
 {
     protected static ?string $model = Category::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
 
-
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema( Category::getForm());
+        return $schema
+            ->components(Category::getForm());
     }
 
     public static function table(Table $table): Table
@@ -36,21 +35,21 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('Title')
-                ->sortable()
-                ->searchable(),
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('Description')
-                    ->getStateUsing(fn ($record) =>  strip_tags($record['Description']))
-                    ->limit(50)
+                    ->getStateUsing(fn ($record) => strip_tags($record['Description']))
+                    ->limit(50),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

@@ -3,34 +3,32 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\TrainResource\Pages;
-use App\Filament\Resources\TrainResource\RelationManagers;
 use App\Models\Train;
-use Filament\Forms;
-use Filament\Forms\Form;
+use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Number;
 
 class TrainResource extends Resource
 {
     protected static ?string $model = Train::class;
 
-    protected static ?string $navigationIcon = 'wi-train';
+    protected static string|BackedEnum|null $navigationIcon = 'wi-train';
 
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
 
-
-
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema( Train::getForm() );
+        return $schema
+            ->components(Train::getForm());
     }
 
     public static function table(Table $table): Table
@@ -43,7 +41,6 @@ class TrainResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('Quantity')
                     ->sortable(),
-
                 Tables\Columns\TextColumn::make('Prise')
                     ->getStateUsing(fn ($record) => Number::currency($record['Price'], 'EUR', 'nl'))
                     ->sortable(),
@@ -56,11 +53,11 @@ class TrainResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }

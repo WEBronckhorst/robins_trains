@@ -3,33 +3,31 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ManufacturerResource\Pages;
-use App\Filament\Resources\ManufacturerResource\RelationManagers;
-use App\Models\Category;
 use App\Models\Manufacturer;
-use Filament\Forms;
-use Filament\Forms\Form;
+use BackedEnum;
+use Filament\Actions\BulkActionGroup;
+use Filament\Actions\DeleteBulkAction;
+use Filament\Actions\EditAction;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ManufacturerResource extends Resource
 {
     protected static ?string $model = Manufacturer::class;
 
-    protected static ?string $navigationIcon = 'gameicon-factory';
+    protected static string|BackedEnum|null $navigationIcon = 'gameicon-factory';
 
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::count();
     }
 
-
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
-            ->schema( Manufacturer::getForm());
+        return $schema
+            ->components(Manufacturer::getForm());
     }
 
     public static function table(Table $table): Table
@@ -39,18 +37,18 @@ class ManufacturerResource extends Resource
                 Tables\Columns\ImageColumn::make('Logo'),
                 Tables\Columns\TextColumn::make('Title'),
                 Tables\Columns\TextColumn::make('Description')
-                    ->getStateUsing(fn ($record) =>  strip_tags($record['Description']))
-                    ->limit(50)
+                    ->getStateUsing(fn ($record) => strip_tags($record['Description']))
+                    ->limit(50),
             ])
             ->filters([
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
+                BulkActionGroup::make([
+                    DeleteBulkAction::make(),
                 ]),
             ]);
     }
