@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\RailSystemResource\Pages;
+use App\Filament\Resources\RelationManagers\TrainsRelationManager;
 use App\Models\RailSystem;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -12,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class RailSystemResource extends Resource
 {
@@ -19,9 +21,19 @@ class RailSystemResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'gameicon-rail-road';
 
+    protected static ?string $navigationLabel = 'Spoorsystemen';
+
+    protected static ?string $modelLabel = 'spoorsysteem';
+
+    protected static ?string $pluralModelLabel = 'spoorsystemen';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Instellingen';
+
+    protected static ?int $navigationSort = 3;
+
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return (string) static::getModel()::count();
     }
 
     public static function form(Schema $schema): Schema
@@ -34,13 +46,18 @@ class RailSystemResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('Title'),
+                Tables\Columns\TextColumn::make('Title')
+                    ->label('Titel')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('trains_count')
+                    ->label('Treinen')
+                    ->counts('trains')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('Description')
-                    ->getStateUsing(fn ($record) => strip_tags($record['Description']))
+                    ->label('Beschrijving')
+                    ->getStateUsing(fn ($record) => strip_tags($record['Description'] ?? ''))
                     ->limit(50),
-            ])
-            ->filters([
-                //
             ])
             ->actions([
                 EditAction::make(),
@@ -55,7 +72,7 @@ class RailSystemResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TrainsRelationManager::class,
         ];
     }
 

@@ -6,6 +6,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class RailSystem extends Model
 {
@@ -29,6 +30,12 @@ class RailSystem extends Model
     protected $casts = [
         'id' => 'integer',
     ];
+
+    public function trains(): HasMany
+    {
+        return $this->hasMany(Train::class);
+    }
+
     public static function getForm(): array
     {
         return [

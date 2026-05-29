@@ -7,6 +7,7 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Manufacturer extends Model
 {
@@ -32,6 +33,11 @@ class Manufacturer extends Model
         'id' => 'integer',
     ];
 
+    public function trains(): HasMany
+    {
+        return $this->hasMany(Train::class);
+    }
+
     public static function getForm(): array
     {
         return [
@@ -40,11 +46,11 @@ class Manufacturer extends Model
                 ->maxLength(255)
                 ->columnSpanFull(),
 
-          RichEditor::make('Description')
+            RichEditor::make('Description')
                 ->required()
                 ->maxLength(255)
                 ->columnSpanFull(),
-           FileUpload::make('Logo')
+            FileUpload::make('Logo')
                 ->required()
                 ->image()
                 ->columnSpanFull(),

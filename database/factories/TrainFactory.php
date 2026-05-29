@@ -7,9 +7,8 @@ use Alirezasedghi\LaravelImageFaker\Services\Picsum;
 use App\Models\Category;
 use App\Models\Manufacturer;
 use App\Models\RailSystem;
-use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Str;
 use App\Models\Train;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
 class TrainFactory extends Factory
 {
@@ -25,8 +24,7 @@ class TrainFactory extends Factory
      */
     public function definition(): array
     {
-//        $imageFaker = new ImageFaker(new Picsum());
-
+        //        $imageFaker = new ImageFaker(new Picsum());
 
         $getCompanyInitials = function ($name) {
             $initials = '';
@@ -42,21 +40,21 @@ class TrainFactory extends Factory
         $logo = fake()->imageUrl(1000, 1000, $getCompanyInitials($title), true);
 
         return [
-            'category_id' =>  rand(1, Category::count()),
-            'manufacturer_id' =>  rand(1, Manufacturer::count()),
+            'category_id' => rand(1, Category::count()),
+            'manufacturer_id' => rand(1, Manufacturer::count()),
             'rail_system_id' => rand(1, RailSystem::count()),
-            'Epoch' => "II",
+            'epoch' => 'II',
             'Title' => $title,
             'Quantity' => fake()->numberBetween(1, 10),
             'Description' => fake()->text(300),
-            'Image' =>  $logo,
+            'Image' => $logo,
             'Scale' => fake()->numberBetween(10, 1000),
             'Country' => fake()->word(),
             'Company' => fake()->word(),
             'CompanyNumber' => fake()->numberBetween(0, 7),
             'Color' => fake()->hexColor(),
             'Decoder' => fake()->boolean(),
-            'ShortDescription' => fake()->text( 100),
+            'ShortDescription' => fake()->text(100),
             'PurchasedDate' => fake()->dateTimeBetween('-3 years', 'yesterday')->format('Y-m-d'),
             'Packaging' => fake()->word(),
             'Condition' => fake()->word(),

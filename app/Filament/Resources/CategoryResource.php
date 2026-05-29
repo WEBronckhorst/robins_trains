@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
+use App\Filament\Resources\RelationManagers\TrainsRelationManager;
 use App\Models\Category;
 use BackedEnum;
 use Filament\Actions\BulkActionGroup;
@@ -12,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
+use UnitEnum;
 
 class CategoryResource extends Resource
 {
@@ -19,9 +21,19 @@ class CategoryResource extends Resource
 
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Categorieën';
+
+    protected static ?string $modelLabel = 'categorie';
+
+    protected static ?string $pluralModelLabel = 'categorieën';
+
+    protected static string|UnitEnum|null $navigationGroup = 'Instellingen';
+
+    protected static ?int $navigationSort = 1;
+
     public static function getNavigationBadge(): ?string
     {
-        return static::getModel()::count();
+        return (string) static::getModel()::count();
     }
 
     public static function form(Schema $schema): Schema
@@ -35,14 +47,17 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('Title')
+                    ->label('Titel')
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('trains_count')
+                    ->label('Treinen')
+                    ->counts('trains')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('Description')
-                    ->getStateUsing(fn ($record) => strip_tags($record['Description']))
+                    ->label('Beschrijving')
+                    ->getStateUsing(fn ($record) => strip_tags($record['Description'] ?? ''))
                     ->limit(50),
-            ])
-            ->filters([
-                //
             ])
             ->actions([
                 EditAction::make(),
@@ -57,7 +72,7 @@ class CategoryResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            TrainsRelationManager::class,
         ];
     }
 

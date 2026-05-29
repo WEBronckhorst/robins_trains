@@ -2,17 +2,11 @@
 
 namespace App\Models;
 
-use Filament\Forms\Components\ColorPicker;
-use Filament\Forms\Components\DatePicker;
-use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
-use Filament\Schemas\Components\Section;
-use Filament\Forms\Components\Select;
-use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
-use Filament\Forms\Components\Toggle;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Category extends Model
 {
@@ -36,6 +30,11 @@ class Category extends Model
     protected $casts = [
         'id' => 'integer',
     ];
+
+    public function trains(): HasMany
+    {
+        return $this->hasMany(Train::class);
+    }
 
     public static function getForm(): array
     {
