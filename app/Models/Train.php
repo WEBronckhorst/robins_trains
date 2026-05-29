@@ -55,6 +55,15 @@ class Train extends Model
         'epoch' => 'string',
     ];
 
+    protected static function booted(): void
+    {
+        static::saving(function (Train $train): void {
+            if ($train->Price === null) {
+                $train->Price = 0;
+            }
+        });
+    }
+
     public function Category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
@@ -194,7 +203,8 @@ class Train extends Model
                                     TextInput::make('Price')
                                         ->label('Prijs')
                                         ->prefix('€')
-                                        ->numeric(),
+                                        ->numeric()
+                                        ->default(0),
                                     DatePicker::make('PurchasedDate')
                                         ->label('Aankoopdatum'),
                                     TextInput::make('Packaging')
