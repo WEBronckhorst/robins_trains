@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\RelationManagers;
 
 use App\Filament\Resources\TrainResource;
+use App\Support\FirstTrainConfetti;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
@@ -48,7 +49,9 @@ class TrainsRelationManager extends RelationManager
                     ->money('EUR', locale: 'nl'),
             ])
             ->headerActions([
-                CreateAction::make()->label('Nieuwe trein'),
+                CreateAction::make()
+                    ->label('Nieuwe trein')
+                    ->after(fn () => FirstTrainConfetti::celebrateIfEligible()),
             ])
             ->actions([
                 ViewAction::make(),

@@ -231,8 +231,9 @@ class Train extends Model
                                             'underline',
                                             'undo',
                                         ]),
-                                    RichEditor::make('ShortDescription')
+                                    TextInput::make('ShortDescription')
                                         ->label('Bestelnummer producent')
+                                        ->maxLength(255)
                                         ->columnSpanFull(),
                                 ]),
                         ]),
@@ -320,7 +321,6 @@ class Train extends Model
                         ->columnSpanFull(),
                     TextEntry::make('ShortDescription')
                         ->label('Bestelnummer producent')
-                        ->html()
                         ->placeholder('—')
                         ->columnSpanFull(),
                 ]),

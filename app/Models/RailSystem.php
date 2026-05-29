@@ -45,7 +45,6 @@ class RailSystem extends Model
                 ->columnSpanFull(),
 
             RichEditor::make('Description')
-                ->required()
                 ->maxLength(255)
                 ->columnSpanFull(),
         ];

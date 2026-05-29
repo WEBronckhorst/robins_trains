@@ -47,11 +47,9 @@ class Manufacturer extends Model
                 ->columnSpanFull(),
 
             RichEditor::make('Description')
-                ->required()
                 ->maxLength(255)
                 ->columnSpanFull(),
             FileUpload::make('Logo')
-                ->required()
                 ->image()
                 ->columnSpanFull(),
         ];

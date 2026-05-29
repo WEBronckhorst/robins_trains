@@ -7,6 +7,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.3",
+        "alexsyvolap/filament-confetti": "^1.0",
         "alirezasedghi/laravel-image-faker": "^1.0",
         "codeat3/blade-game-icons": "^1.4",
         "codeat3/blade-weather-icons": "^1.6",
